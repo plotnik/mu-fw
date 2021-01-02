@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
+import { FwService } from '../fw.service';
 
 @Component({
   selector: 'app-home',
@@ -7,14 +8,29 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  textNote;
+  dstamp;
 
-  constructor() { }
+  STORAGE_DATE = 'fw-date';
+
+  constructor(private fwService: FwService) { }
 
   ngOnInit(): void {
+      const dstr = localStorage.getItem(this.STORAGE_DATE);
+      if (dstr) {
+        this.dstamp = Date.parse(dstr);
+      }
   }
 
   onSelect(event): void {
-    const dstr = formatDate(event.value, 'YYYY-MM-dd', 'en-US');
+    // const d = event.value;
+    const d = this.dstamp;
+
+    const dstr = formatDate(d, 'YYYY-MM-dd', 'en-US');
     console.log('onSelect:', dstr);
+    this.fwService.getNote(dstr).subscribe(note => {
+      this.textNote = note.text;
+      localStorage.setItem(this.STORAGE_DATE, this.dstamp.toISOString());
+    });
   }
 }
