@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
       const dstr = localStorage.getItem(this.STORAGE_DATE);
       if (dstr) {
-        this.dstamp = Date.parse(dstr);
+        this.dstamp = new Date(dstr);
       }
   }
 
