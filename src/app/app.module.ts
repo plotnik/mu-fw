@@ -12,6 +12,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 
 /*
 import {A11yModule} from '@angular/cdk/a11y';
@@ -28,7 +29,6 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
@@ -72,6 +72,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatNativeDateModule,
     MatRippleModule,
     MatCardModule,
+    MatChipsModule,
 
     /*
     A11yModule,
@@ -86,7 +87,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatButtonModule,
     MatButtonToggleModule,
     MatCheckboxModule,
-    MatChipsModule,
     MatStepperModule,
     MatDialogModule,
     MatDividerModule,
