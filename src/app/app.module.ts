@@ -13,6 +13,9 @@ import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatCardModule} from '@angular/material/card';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import { TagsComponent } from './tags/tags.component';
 
 /*
 import {A11yModule} from '@angular/cdk/a11y';
@@ -26,7 +29,6 @@ import {CdkTreeModule} from '@angular/cdk/tree';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
-import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatStepperModule} from '@angular/material/stepper';
@@ -34,7 +36,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
-import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -58,7 +59,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    TagsComponent
   ],
   imports: [
     BrowserModule,
@@ -73,6 +75,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatRippleModule,
     MatCardModule,
     MatChipsModule,
+    MatButtonModule,
+    MatIconModule,
 
     /*
     A11yModule,
@@ -84,7 +88,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
-    MatButtonModule,
     MatButtonToggleModule,
     MatCheckboxModule,
     MatStepperModule,
@@ -92,7 +95,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatDividerModule,
     MatExpansionModule,
     MatGridListModule,
-    MatIconModule,
     MatListModule,
     MatMenuModule,
     MatPaginatorModule,

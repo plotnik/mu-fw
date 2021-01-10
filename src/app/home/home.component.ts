@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
-import { FwService } from '../fw.service';
 import { ActivatedRoute } from '@angular/router';
+
+import { FwService } from '../fw.service';
+import { FwNote, FwTag } from '../fw-note';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +11,9 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  textNote;
-  dstamp;
+  textNote: string;
+  tags: FwTag[];
+  dstamp: Date;
 
   STORAGE_DATE = 'fw-date';
 
@@ -33,22 +36,30 @@ export class HomeComponent implements OnInit {
 
         /* Загрузить указанную заметку.
          */
-        this.fwService.getNote(dstr).subscribe(note => {
+        this.fwService.loadNote(dstr).subscribe((note: FwNote) => {
           this.textNote = note.text;
+          this.tags = note.tags;
+          this.fwService.setNote(dstr, note);
         });
       }
   }
 
-  onSelect(event): void {
+  onSelect(): void {
     /* Привести значение из календаря к нужному формату.
      */
     const dstr = formatDate(this.dstamp, 'YYYY-MM-dd', 'en-US');
-    localStorage.setItem(this.STORAGE_DATE, dstr); // this.dstamp.toISOString().substring(0, 10));
+    localStorage.setItem(this.STORAGE_DATE, dstr);
 
     /* Загрузить выбранную заметку.
      */
-    this.fwService.getNote(dstr).subscribe(note => {
+    this.fwService.loadNote(dstr).subscribe((note: FwNote) => {
       this.textNote = note.text;
+      this.tags = note.tags;
+      this.fwService.setNote(dstr, note);
     });
+  }
+
+  onTagSelect(tag: FwTag): void {
+    window.open(tag.url, '_blank');
   }
 }
