@@ -1,5 +1,13 @@
 .note {
+    font-family: 'B52', arial;
+    font-size: 30px;
+    line-height: 110%;
+    font-weight: 400;
+}
+/*
+.note {
     font-family: "Marck Script";
     font-size: 30px;
     line-height: 110%;
 }
+*/

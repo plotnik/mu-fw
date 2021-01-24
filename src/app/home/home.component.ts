@@ -37,9 +37,7 @@ export class HomeComponent implements OnInit {
         /* Загрузить указанную заметку.
          */
         this.fwService.loadNote(dstr).subscribe((note: FwNote) => {
-          this.textNote = note.text;
-          this.tags = note.tags;
-          this.fwService.setNote(dstr, note);
+          this.setNote(dstr, note);
         });
       }
   }
@@ -53,10 +51,15 @@ export class HomeComponent implements OnInit {
     /* Загрузить выбранную заметку.
      */
     this.fwService.loadNote(dstr).subscribe((note: FwNote) => {
-      this.textNote = note.text;
-      this.tags = note.tags;
-      this.fwService.setNote(dstr, note);
+      this.setNote(dstr, note);
     });
+  }
+
+  setNote(dstr: string, note: FwNote): void {
+    const underline = '-'.repeat(note.dateStr.length);
+    this.textNote = note.dateStr + '\n' + underline + '\n' + note.text;
+    this.tags = note.tags;
+    this.fwService.setNote(dstr, note);
   }
 
   onTagSelect(tag: FwTag): void {

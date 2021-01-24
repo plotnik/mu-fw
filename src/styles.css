@@ -2,3 +2,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@font-face {
+    font-family: 'B52';
+    font-style: normal;
+    font-weight: 400;
+    src: local('B52'), local('B52-Regular'),
+        url(assets/b52_[allfont.ru].ttf) format('truetype');}
