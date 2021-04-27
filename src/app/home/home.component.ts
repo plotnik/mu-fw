@@ -29,6 +29,10 @@ export class HomeComponent implements OnInit {
         dstr = localStorage.getItem(this.STORAGE_DATE);
       }
 
+      /* Загрузить тэги в сервис
+       */
+      this.fwService.loadTags();
+
       if (dstr) {
         /* Выставить календарь соответственно.
          */
@@ -56,10 +60,14 @@ export class HomeComponent implements OnInit {
   }
 
   setNote(dstr: string, note: FwNote): void {
-    const underline = '-'.repeat(note.dateStr.length);
-    this.textNote = note.dateStr + '\n' + underline + '\n' + note.text;
-    this.tags = note.tags;
-    this.fwService.setNote(dstr, note);
+    if (note.dateStr) {
+      const underline = '-'.repeat(note.dateStr.length);
+      this.textNote = note.dateStr + '\n' + underline + '\n' + note.text;
+      this.tags = note.tags;
+      this.fwService.setNote(dstr, note);
+    } else {
+      this.textNote = undefined;
+    }
   }
 
   onTagSelect(tag: FwTag): void {

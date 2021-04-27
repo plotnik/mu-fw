@@ -1,24 +1,32 @@
-<p>tags works!</p>
+<mat-card>
+  <form class="form-flex" [formGroup]="tagForm" fxLayout="column" fxLayoutGap="10px" fxFlexFill>
 
-<!--mat-form-field class="example-chip-list">
-    <mat-label>Tags for {{dstamp}}</mat-label>
-    <mat-chip-list #chipList>
-      <mat-chip
-        *ngFor="let tagName of tagNames">
-        {{tagName}}
-      </mat-chip>
-      <input
-        placeholder="New tag..."
-        #tagInput
-        [formControl]="tagCtrl"
-        [matAutocomplete]="auto"
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="addTag($event)">
-    </mat-chip-list>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let tagName of filteredTags | async" [value]="tag">
-        {{tagName}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field-->
+  <mat-form-field class="example-chip-list">
+      <mat-label>Tags for {{dstamp}}</mat-label>
+      <mat-chip-list #chipList>
+        <mat-chip
+          *ngFor="let tagName of tagNames"
+          (removed)="remove(tagName)">
+          {{tagName}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="New tag..."
+          #tagInput
+          [formControl]="tagCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addTag($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let tagName of filteredTags| async" [value]="tagName">
+          {{tagName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <button type="submit" color="primary" mat-raised-button>Submit</button>
+  </form>
+</mat-card>
+<!--p>tags works!</p-->
