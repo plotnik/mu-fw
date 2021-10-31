@@ -13,9 +13,21 @@
 
 <mat-card>
 
+    <button mat-icon-button (click)="onPrevNote()">
+        <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+
+    &nbsp;
+
     <input [(ngModel)]="dstamp" (dateChange)="onSelect()" matInput [matDatepicker]="picker" style="display: none;">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+
+    &nbsp;
+
+    <button mat-icon-button (click)="onNextNote()">
+        <mat-icon>arrow_forward_ios</mat-icon>
+    </button>
 
     &nbsp;
 

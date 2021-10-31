@@ -40,20 +40,25 @@ export class HomeComponent implements OnInit {
 
         /* Загрузить указанную заметку.
          */
-        this.fwService.loadNote(dstr).subscribe((note: FwNote) => {
-          this.setNote(dstr, note);
-        });
+        this.loadNote(dstr);
       }
   }
 
   onSelect(): void {
     /* Привести значение из календаря к нужному формату.
      */
-    const dstr = formatDate(this.dstamp, 'YYYY-MM-dd', 'en-US');
+    const dstr = this.dateStr();
     localStorage.setItem(this.STORAGE_DATE, dstr);
+    this.loadNote(dstr);
+  }
 
-    /* Загрузить выбранную заметку.
-     */
+  dateStr(): string {
+    return formatDate(this.dstamp, 'YYYY-MM-dd', 'en-US');
+  }
+
+  /** Загрузить выбранную заметку.
+   */
+  loadNote(dstr: string): void {
     this.fwService.loadNote(dstr).subscribe((note: FwNote) => {
       this.setNote(dstr, note);
     });
@@ -72,5 +77,15 @@ export class HomeComponent implements OnInit {
 
   onTagSelect(tag: FwTag): void {
     window.open(tag.url, '_blank');
+  }
+
+  onPrevNote(): void {
+    this.dstamp.setDate(this.dstamp.getDate() - 1);
+    this.loadNote(this.dateStr());
+  }
+
+  onNextNote(): void {
+    this.dstamp.setDate(this.dstamp.getDate() + 1);
+    this.loadNote(this.dateStr());
   }
 }

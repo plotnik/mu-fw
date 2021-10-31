@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_URL_BASE: 'http://localhost:8080'
+  API_URL_BASE: 'http://192.168.100.7:8080/pi'
+  // API_URL_BASE: 'http://localhost:8080'
 };
 
 /*
