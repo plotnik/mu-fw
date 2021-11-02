@@ -22,26 +22,26 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-      /* Проверить, имеется ли дата в урле.
+    /* Проверить, имеется ли дата в урле.
+     */
+    let dstr = this.route.snapshot.paramMap.get('d');
+    if (!dstr) {
+      dstr = localStorage.getItem(this.STORAGE_DATE);
+    }
+
+    /* Загрузить тэги в сервис
+     */
+    this.fwService.loadTags();
+
+    if (dstr) {
+      /* Выставить календарь соответственно.
        */
-      let dstr = this.route.snapshot.paramMap.get('d');
-      if (!dstr) {
-        dstr = localStorage.getItem(this.STORAGE_DATE);
-      }
+      this.dstamp = new Date(dstr);
 
-      /* Загрузить тэги в сервис
+      /* Загрузить указанную заметку.
        */
-      this.fwService.loadTags();
-
-      if (dstr) {
-        /* Выставить календарь соответственно.
-         */
-        this.dstamp = new Date(dstr);
-
-        /* Загрузить указанную заметку.
-         */
-        this.loadNote(dstr);
-      }
+      this.loadNote(dstr);
+    }
   }
 
   onSelect(): void {
@@ -87,5 +87,19 @@ export class HomeComponent implements OnInit {
   onNextNote(): void {
     this.dstamp.setDate(this.dstamp.getDate() + 1);
     this.loadNote(this.dateStr());
+  }
+
+  onAerostat(): void {
+    window.open('https://aerostatbg.ru/release/' + this.getAerostat(this.dstamp), '_blank');
+  }
+
+  getAerostat(date: Date): number {
+    const t1 = date.getTime();
+    const t2 = new Date('2005-05-21').getTime();
+    if (t1 > t2) {
+      return Math.ceil((date.getTime() - new Date('2005-05-21').getTime()) / 86400000 / 7);
+    } else {
+      return 1;
+    }
   }
 }
