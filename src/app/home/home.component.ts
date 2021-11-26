@@ -48,7 +48,6 @@ export class HomeComponent implements OnInit {
     /* Привести значение из календаря к нужному формату.
      */
     const dstr = this.dateStr();
-    localStorage.setItem(this.STORAGE_DATE, dstr);
     this.loadNote(dstr);
   }
 
@@ -61,6 +60,7 @@ export class HomeComponent implements OnInit {
   loadNote(dstr: string): void {
     this.fwService.loadNote(dstr).subscribe((note: FwNote) => {
       this.setNote(dstr, note);
+      localStorage.setItem(this.STORAGE_DATE, dstr);
     });
   }
 
