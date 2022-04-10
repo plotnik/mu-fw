@@ -8,3 +8,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-weight: 400;
     src: local('B52'), local('B52-Regular'),
         url(assets/b52_[allfont.ru].ttf) format('truetype');}
+
+.note {
+    font-family: 'B52', arial;
+    font-size: 30px;
+    line-height: 110%;
+    font-weight: 400;
+}
+/*
+.note {
+    font-family: "Marck Script";
+    font-size: 30px;
+    line-height: 110%;
+}
+*/

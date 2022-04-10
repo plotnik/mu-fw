@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { FwNote, FwTag } from './fw-note';
 import { environment } from 'src/environments/environment';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +31,9 @@ export class FwService {
     this.dstamp = dstamp;
     this.note = note;
   }
+
+  dateStr(dstamp: Date): string {
+    return formatDate(dstamp, 'YYYY-MM-dd', 'en-US');
+  }
+
 }

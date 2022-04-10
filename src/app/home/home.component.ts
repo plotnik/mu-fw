@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
 import { FwService } from '../fw.service';
@@ -47,12 +46,11 @@ export class HomeComponent implements OnInit {
   onSelect(): void {
     /* Привести значение из календаря к нужному формату.
      */
-    const dstr = this.dateStr();
-    this.loadNote(dstr);
+    this.loadNote(this.dateStr());
   }
 
   dateStr(): string {
-    return formatDate(this.dstamp, 'YYYY-MM-dd', 'en-US');
+    return this.fwService.dateStr(this.dstamp);
   }
 
   /** Загрузить выбранную заметку.

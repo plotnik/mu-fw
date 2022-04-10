@@ -1,8 +1,11 @@
 <mat-card>
   <form class="form-flex" [formGroup]="tagForm" fxLayout="column" fxLayoutGap="10px" fxFlexFill>
 
-  <mat-form-field class="example-chip-list">
-      <mat-label>Tags for {{dstamp}}</mat-label>
+    <p class="note">
+      <a routerLink="/home">{{note.dateStr}}</a>
+    </p>
+
+    <mat-form-field class="example-chip-list">
       <mat-chip-list #chipList>
         <mat-chip
           *ngFor="let tagName of tagNames"

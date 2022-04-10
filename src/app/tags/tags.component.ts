@@ -15,8 +15,7 @@ import { FwNote, FwTag } from '../fw-note';
   styleUrls: ['./tags.component.css']
 })
 export class TagsComponent implements OnInit {
-  
-  dstamp: string;
+
   note: FwNote;
 
   // текущий набор тэгов
@@ -49,9 +48,8 @@ export class TagsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dstamp = this.fwService.dstamp;
     this.note = this.fwService.note;
-    this.tagNames = this.note.tags.map(tag => tag.name);
+    this.tagNames = this.note.tags? this.note.tags.map(tag => tag.name) : [];
     console.log('--- tagNames:', this.tagNames);
 
     this.tagForm = new FormGroup({
