@@ -2,12 +2,13 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { FwService } from '../fw.service';
 import { FwNote, FwTag } from '../fw-note';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tags',
@@ -33,9 +34,9 @@ export class TagsComponent implements OnInit {
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
-  constructor(private fwService: FwService) {
+  constructor(private fwService: FwService, private router: Router) {
     this.allTagNames = this.fwService.tags; // .map(tag => tag.name);
-    console.log('--- allTagNames:', this.allTagNames);
+    // console.log('--- allTagNames:', this.allTagNames);
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(''),
       map((tname: string | null) => tname ? this._filter(tname) : this.allTagNames.slice()));
@@ -89,5 +90,11 @@ export class TagsComponent implements OnInit {
   remove(tagName: string): void {
     // console.log('--- removing', tagName);
     this.tagNames = this.tagNames.filter(tag => tag !== tagName);
+  }
+
+  submit() {
+    console.log('--- tagNames', this.tagNames);
+    this.fwService.updateTags(this.tagNames);
+    this.router.navigate(['']);
   }
 }

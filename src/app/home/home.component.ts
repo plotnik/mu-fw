@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
       const underline = '-'.repeat(note.dateStr.length);
       this.textNote = note.dateStr + '\n' + underline + '\n' + note.text;
       this.tags = note.tags;
-      this.fwService.setNote(dstr, note);
+      this.fwService.setNote(new Date(dstr), note);
     } else {
       this.textNote = undefined;
     }

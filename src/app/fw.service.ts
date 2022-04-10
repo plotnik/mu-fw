@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
 })
 export class FwService {
   serverUrl = 'http://192.168.100.7:8080/pi';
-  dstamp: string;
+  dstamp: Date;
   note: FwNote;
   tags: string[];
 
@@ -21,13 +21,20 @@ export class FwService {
     return this.http.get<FwNote>(environment.API_URL_BASE + '/fw', { params: p });
   }
 
-  loadTags(): void  {
+  loadTags() {
     this.http.get<string[]>(environment.API_URL_BASE + '/fw/tags').subscribe((tagList: string[]) => {
       this.tags = tagList;
     });
   }
 
-  setNote(dstamp: string, note: FwNote): void {
+  updateTags(tags: string[]) {
+    this.http.post(environment.API_URL_BASE + '/fw/updateNoteTags', {
+      d: this.dateStr(this.dstamp),
+      newTags: tags
+    }).subscribe();
+  }
+
+  setNote(dstamp: Date, note: FwNote) {
     this.dstamp = dstamp;
     this.note = note;
   }

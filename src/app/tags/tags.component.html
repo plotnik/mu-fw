@@ -1,5 +1,5 @@
 <mat-card>
-  <form class="form-flex" [formGroup]="tagForm" fxLayout="column" fxLayoutGap="10px" fxFlexFill>
+  <form class="form-flex" [formGroup]="tagForm" (ngSubmit)="submit()" fxLayout="column" fxLayoutGap="10px" fxFlexFill>
 
     <p class="note">
       <a routerLink="/home">{{note.dateStr}}</a>
