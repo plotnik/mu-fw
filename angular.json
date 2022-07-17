@@ -4,6 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "mu-fw": {
+      "i18n": {
+        "sourceLocale": "ru"
+      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,6 +16,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "localize": ["ru"],
             "outputPath": "dist/mu-fw",
             "index": "src/index.html",
             "main": "src/main.ts",

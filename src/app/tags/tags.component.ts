@@ -25,6 +25,9 @@ export class TagsComponent implements OnInit {
   // полный набор тэгов
   allTagNames: string[];
 
+  // шаблоны поиска
+  patterns: string[];
+
   filteredTags: Observable<string[]>;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -52,6 +55,10 @@ export class TagsComponent implements OnInit {
     this.note = this.fwService.note;
     this.tagNames = this.note.tags? this.note.tags.map(tag => tag.name) : [];
     console.log('--- tagNames:', this.tagNames);
+
+    this.fwService.loadPatterns().subscribe((patList: string[]) => {
+      this.patterns = patList;
+    })
 
     this.tagForm = new FormGroup({
       tagCtrl: new FormControl()
@@ -96,5 +103,9 @@ export class TagsComponent implements OnInit {
     console.log('--- tagNames', this.tagNames);
     this.fwService.updateTags(this.tagNames);
     this.router.navigate(['']);
+  }
+
+  findPattern(pattern: string) {
+    this.router.navigate(['/pattern', pattern]);
   }
 }

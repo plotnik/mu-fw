@@ -13,6 +13,7 @@ export class FwService {
   dstamp: Date;
   note: FwNote;
   tags: string[];
+  visitedPatterns = {};
 
   constructor(private http: HttpClient) { }
 
@@ -24,6 +25,18 @@ export class FwService {
   loadTags() {
     this.http.get<string[]>(environment.API_URL_BASE + '/fw/tags').subscribe((tagList: string[]) => {
       this.tags = tagList;
+    });
+  }
+
+  loadPatterns(): Observable<string[]>  {
+    return this.http.get<string[]>(environment.API_URL_BASE + '/fw/patterns');
+  }
+
+  findPattern(pattern: string): Observable<string[]>  {
+    return this.http.get<string[]>(environment.API_URL_BASE + '/fw/findPattern', {
+      params: {
+        p: pattern
+      }
     });
   }
 
@@ -43,4 +56,11 @@ export class FwService {
     return formatDate(dstamp, 'YYYY-MM-dd', 'en-US');
   }
 
+  markVisited(date: Date) {
+    this.visitedPatterns[date.toISOString()] = true;
+  }
+
+  isVisited(date: Date): boolean {
+    return this.visitedPatterns[date.toISOString()];
+  }
 }

@@ -32,4 +32,14 @@
     <button type="submit" color="primary" mat-raised-button>Submit</button>
   </form>
 </mat-card>
-<!--p>tags works!</p-->
+
+<mat-card>
+  <mat-nav-list>
+    <mat-list-item *ngFor="let pattern of patterns" class="note" (click)="findPattern(pattern)">
+      <a matLine>{{ pattern }}</a>
+      <button mat-icon-button>
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+  </mat-list-item>
+ </mat-nav-list>
+</mat-card>

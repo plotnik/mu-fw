@@ -19,6 +19,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatListModule} from '@angular/material/list';
+import { PatternComponent } from './pattern/pattern.component';
 
 /*
 import {A11yModule} from '@angular/cdk/a11y';
@@ -37,7 +39,6 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
-import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
@@ -61,7 +62,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
   declarations: [
     AppComponent,
     HomeComponent,
-    TagsComponent
+    TagsComponent,
+    PatternComponent
   ],
   imports: [
     BrowserModule,
@@ -82,6 +84,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatIconModule,
     MatDividerModule,
     MatAutocompleteModule,
+    MatListModule,
 
     /*
     A11yModule,
@@ -98,7 +101,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
-    MatListModule,
     MatMenuModule,
     MatPaginatorModule,
     MatProgressBarModule,
