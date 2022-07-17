@@ -1,10 +1,8 @@
 <mat-card>
     <mat-nav-list>
         <mat-list-item *ngFor="let date of dates" class="note" (click)="openDate(date)">
+            <mat-icon mat-list-icon>{{ isVisited(date)? 'done':'more_horiz'}}</mat-icon>
             <a matLine>{{ date | date:'d MMMM y, EE' }}</a>
-            <button mat-icon-button>
-                <mat-icon>{{ isVisited(date)? 'done':'more_horiz'}}</mat-icon>
-            </button>
         </mat-list-item>
     </mat-nav-list>
 </mat-card>
