@@ -4,32 +4,76 @@ import { Observable, of } from 'rxjs';
 import { FwNote, FwTag } from './fw-note';
 import { environment } from 'src/environments/environment';
 import { formatDate } from '@angular/common';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FwService {
-  serverUrl = 'http://192.168.100.7:8080/pi';
+
   dstamp: Date;
   note: FwNote;
   tags: string[];
+  tagList: FwTag[];
   visitedPatterns = {};
+  
+  CAT_ALL = 'Все';
+  CAT_NONE = 'Без категории';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    this.loadTags();
+  }
 
   loadNote(dstamp: string): Observable<FwNote>  {
     const p = new HttpParams().set('d', dstamp);
     return this.http.get<FwNote>(environment.API_URL_BASE + '/fw', { params: p });
   }
 
-  loadTags() {
-    this.http.get<string[]>(environment.API_URL_BASE + '/fw/tags').subscribe((tagList: string[]) => {
-      this.tags = tagList;
+  loadTags(): Observable<string[]>  {
+    let observable = this.http.get<string[]>(environment.API_URL_BASE + '/fw/tags');
+    new Observable(observer => {
+      observable.subscribe((tagList: string[]) => {
+        console.log('-- Tags loaded');
+        this.tags = tagList;
+        observer.next(tagList);
+        observer.complete();
+      });
     });
+    return observable;
+  }
+
+  loadTagsByCategory(cat: string): Observable<string[]> {
+    let options = {
+      params: new HttpParams()
+    };
+
+    if (cat === this.CAT_ALL) {
+      cat = '*'
+    } else
+    if (cat === this.CAT_NONE) {
+      cat = '';
+    }
+
+    options.params = new HttpParams().set('c', cat);
+    let observable = this.http.get<FwTag[]>(environment.API_URL_BASE + '/fw/ctags', options);
+    // new Observable(observer => {
+      observable.subscribe((tagList: FwTag[]) => {
+        this.tags = tagList.map(tag => tag.name);
+        this.tagList = tagList;
+        console.log('-- tagList:', this.tagList);
+        // observer.next(tagList);
+        // observer.complete();
+      });
+    // });
+    return observable.pipe(map((fwTags: FwTag[]) => fwTags.map((fwTag: FwTag) => fwTag.name)));
   }
 
   loadPatterns(): Observable<string[]>  {
     return this.http.get<string[]>(environment.API_URL_BASE + '/fw/patterns');
+  }
+
+  loadCategories(): Observable<string[]>  {
+    return this.http.get<string[]>(environment.API_URL_BASE + '/fw/cats');
   }
 
   findPattern(pattern: string): Observable<string[]>  {

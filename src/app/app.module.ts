@@ -1,26 +1,26 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatListModule } from '@angular/material/list';
+import { MatRadioModule } from '@angular/material/radio';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { TagsComponent } from './tags/tags.component';
-
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
-import {MatCardModule} from '@angular/material/card';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatListModule} from '@angular/material/list';
 import { PatternComponent } from './pattern/pattern.component';
+import { PatternsComponent } from './patterns/patterns.component';
+import { TagsComponent } from './tags/tags.component';
 
 /*
 import {A11yModule} from '@angular/cdk/a11y';
@@ -43,7 +43,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSliderModule} from '@angular/material/slider';
@@ -63,7 +62,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     AppComponent,
     HomeComponent,
     TagsComponent,
-    PatternComponent
+    PatternComponent,
+    PatternsComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +85,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatDividerModule,
     MatAutocompleteModule,
     MatListModule,
+    MatRadioModule,
 
     /*
     A11yModule,
@@ -105,7 +106,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatPaginatorModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
-    MatRadioModule,
     MatSelectModule,
     MatSidenavModule,
     MatSliderModule,

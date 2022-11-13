@@ -1,14 +1,13 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-
-import { FwService } from '../fw.service';
-import { FwNote, FwTag } from '../fw-note';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { filter, map, startWith } from 'rxjs/operators';
+import { FwNote } from '../fw-note';
+import { FwService } from '../fw.service';
 
 @Component({
   selector: 'app-tags',
@@ -20,15 +19,19 @@ export class TagsComponent implements OnInit {
   note: FwNote;
 
   // текущий набор тэгов
-  tagNames: string[];
+  tagNames: string[] = [];
 
   // полный набор тэгов
-  allTagNames: string[];
+  allTagNames: string[] = [];
 
-  // шаблоны поиска
-  patterns: string[];
+  // список категорий тэгов
+  categories: string[] = [];
 
+  // тэги отфильтрованные через поле поиска
   filteredTags: Observable<string[]>;
+
+  // тэги отфильтрованные через селектор категорий
+  catFilteredTags: string[] = [];
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -38,8 +41,17 @@ export class TagsComponent implements OnInit {
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
   constructor(private fwService: FwService, private router: Router) {
-    this.allTagNames = this.fwService.tags; // .map(tag => tag.name);
-    // console.log('--- allTagNames:', this.allTagNames);
+    new Observable(observer => {
+      this.fwService.loadTags().subscribe((tagList: string[]) => {
+        this.allTagNames = this.fwService.tags; // .map(tag => tag.name);
+        this.catFilteredTags = this.allTagNames;
+        console.log('catFilteredTags.length:', this.catFilteredTags.length);
+
+        observer.next(tagList);
+        observer.complete();
+      });
+    });
+
     this.filteredTags = this.tagCtrl.valueChanges.pipe(
       startWith(''),
       map((tname: string | null) => tname ? this._filter(tname) : this.allTagNames.slice()));
@@ -56,8 +68,10 @@ export class TagsComponent implements OnInit {
     this.tagNames = this.note.tags? this.note.tags.map(tag => tag.name) : [];
     console.log('--- tagNames:', this.tagNames);
 
-    this.fwService.loadPatterns().subscribe((patList: string[]) => {
-      this.patterns = patList;
+    this.fwService.loadCategories().subscribe((catList: string[]) => {
+      this.categories = catList;
+      this.categories.unshift(this.fwService.CAT_ALL);
+      this.categories.push(this.fwService.CAT_NONE);
     })
 
     this.tagForm = new FormGroup({
@@ -105,7 +119,20 @@ export class TagsComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  findPattern(pattern: string) {
-    this.router.navigate(['/pattern', pattern]);
+  selectCategory(category: string) {
+    console.log('category:', category);
+    this.fwService.loadTagsByCategory(category).subscribe(tags => {
+      this.catFilteredTags = tags;
+      console.log('catFilteredTags.length:', this.catFilteredTags.length);
+    });
   }
+  
+  selectTag(tag: string) {
+    console.log('tag:', tag);
+    console.log('tagList:', this.fwService.tagList);
+    let it = this.fwService.tagList.find(t => t.name===tag);
+    console.log('url:', it.url);
+    window.open(it.url, '_blank');
+  }
+
 }

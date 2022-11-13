@@ -34,12 +34,21 @@
 </mat-card>
 
 <mat-card>
+  <p>
+    <label id="cat-radio-group-label">Select category</label>
+  </p>
+  <mat-radio-group aria-label="cat-radio-group-label">
+    <mat-radio-button *ngFor="let cat of categories" [value]="cat" (click)="selectCategory(cat)">{{cat}}</mat-radio-button>
+  </mat-radio-group>
+</mat-card>
+
+<mat-card>
   <mat-nav-list>
-    <mat-list-item *ngFor="let pattern of patterns" class="note" (click)="findPattern(pattern)">
-      <a matLine>{{ pattern }}</a>
+    <mat-list-item *ngFor="let tag of catFilteredTags" class="note" (click)="selectTag(tag)">
+      <a matLine>{{ tag }}</a>
       <button mat-icon-button>
         <mat-icon>chevron_right</mat-icon>
       </button>
-  </mat-list-item>
- </mat-nav-list>
+    </mat-list-item>
+  </mat-nav-list>
 </mat-card>
