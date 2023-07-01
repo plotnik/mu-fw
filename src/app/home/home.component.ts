@@ -7,12 +7,12 @@ import { FwNote, FwTag } from '../fw-note';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  textNote: string;
-  tags: FwTag[];
-  dstamp: Date;
+  textNote?: string;
+  tags: FwTag[] = [];
+  dstamp: Date = new Date();
 
   STORAGE_DATE = 'fw-date';
 

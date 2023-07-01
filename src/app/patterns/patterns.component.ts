@@ -6,12 +6,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-patterns',
   templateUrl: './patterns.component.html',
-  styleUrls: ['./patterns.component.css']
+  styleUrls: ['./patterns.component.scss']
 })
 export class PatternsComponent implements OnInit {
 
   // шаблоны поиска
-  patterns: string[];
+  patterns: string[] = [];
 
   constructor(private fwService: FwService, private router: Router) { }
 

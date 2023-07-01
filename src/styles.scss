@@ -2,6 +2,7 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
 @font-face {
     font-family: 'B52';
     font-style: normal;
@@ -15,10 +16,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     line-height: 110%;
     font-weight: 400;
 }
-/*
-.note {
-    font-family: "Marck Script";
-    font-size: 30px;
-    line-height: 110%;
+
+.fw-page {
+    padding: 20px;
 }
-*/

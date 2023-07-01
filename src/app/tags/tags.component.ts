@@ -12,11 +12,11 @@ import { FwService } from '../fw.service';
 @Component({
   selector: 'app-tags',
   templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.css']
+  styleUrls: ['./tags.component.scss']
 })
 export class TagsComponent implements OnInit {
 
-  note: FwNote;
+  note?: FwNote;
 
   // текущий набор тэгов
   tagNames: string[] = [];
@@ -35,10 +35,13 @@ export class TagsComponent implements OnInit {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  tagForm: FormGroup;
+  tagForm = new FormGroup({
+    tagCtrl: new FormControl()
+  });
+
   tagCtrl = new FormControl();
 
-  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  //@ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
 
   constructor(private fwService: FwService, private router: Router) {
     new Observable(observer => {
@@ -65,7 +68,7 @@ export class TagsComponent implements OnInit {
 
   ngOnInit(): void {
     this.note = this.fwService.note;
-    this.tagNames = this.note.tags? this.note.tags.map(tag => tag.name) : [];
+    this.tagNames = this.note?.tags? this.note?.tags.map(tag => tag.name) : [];
     console.log('--- tagNames:', this.tagNames);
 
     this.fwService.loadCategories().subscribe((catList: string[]) => {
@@ -73,10 +76,6 @@ export class TagsComponent implements OnInit {
       this.categories.unshift(this.fwService.CAT_ALL);
       this.categories.push(this.fwService.CAT_NONE);
     })
-
-    this.tagForm = new FormGroup({
-      tagCtrl: new FormControl()
-     });
   }
 
   addTag(event: MatChipInputEvent): void {
@@ -104,7 +103,7 @@ export class TagsComponent implements OnInit {
     const value = event.option.viewValue;
     console.log('--- selected:', value);
     this.tagNames.push(value);
-    this.tagInput.nativeElement.value = '';
+    //this.tagInput.nativeElement.value = '';
     this.tagCtrl.setValue(null);
   }
 
@@ -131,8 +130,8 @@ export class TagsComponent implements OnInit {
     console.log('tag:', tag);
     console.log('tagList:', this.fwService.tagList);
     let it = this.fwService.tagList.find(t => t.name===tag);
-    console.log('url:', it.url);
-    window.open(it.url, '_blank');
+    console.log('url:', it?.url);
+    window.open(it?.url, '_blank');
   }
 
 }

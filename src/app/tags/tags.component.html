@@ -1,18 +1,19 @@
+<div class="fw-page">
 <mat-card>
   <form class="form-flex" [formGroup]="tagForm" (ngSubmit)="submit()" fxLayout="column" fxLayoutGap="10px" fxFlexFill>
 
     <p class="note">
-      <a routerLink="/home">{{note.dateStr}}</a>
+      <a routerLink="/home">{{note?.dateStr}}</a>
     </p>
 
     <mat-form-field class="example-chip-list">
-      <mat-chip-list #chipList>
-        <mat-chip
+      <mat-chip-grid #chipList>
+        <mat-chip-row
           *ngFor="let tagName of tagNames"
           (removed)="remove(tagName)">
           {{tagName}}
           <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
+        </mat-chip-row>
         <input
           placeholder="New tag..."
           #tagInput
@@ -21,7 +22,7 @@
           [matChipInputFor]="chipList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           (matChipInputTokenEnd)="addTag($event)">
-      </mat-chip-list>
+      </mat-chip-grid>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let tagName of filteredTags| async" [value]="tagName">
           {{tagName}}
@@ -52,3 +53,6 @@
     </mat-list-item>
   </mat-nav-list>
 </mat-card>
+
+<p>Version 2023-07-01 13:00</p>
+</div>

@@ -11,10 +11,10 @@ import { filter, map } from 'rxjs/operators';
 })
 export class FwService {
 
-  dstamp: Date;
-  note: FwNote;
-  tags: string[];
-  tagList: FwTag[];
+  dstamp = new Date();
+  note?: FwNote;
+  tags: string[] = [];
+  tagList: FwTag[] = [];
   visitedPatterns = {};
   
   CAT_ALL = 'Все';
@@ -101,10 +101,10 @@ export class FwService {
   }
 
   markVisited(date: Date) {
-    this.visitedPatterns[date.toISOString()] = true;
+    (this.visitedPatterns as any)[date.toISOString()] = true;
   }
 
   isVisited(date: Date): boolean {
-    return this.visitedPatterns[date.toISOString()];
+    return (this.visitedPatterns as any)[date.toISOString()];
   }
 }

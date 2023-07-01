@@ -1,17 +1,17 @@
-
+<div class="fw-page">
 <mat-card class="note">
     <span [innerText]="textNote"></span>
 </mat-card>
 
 <mat-card>
-    <mat-chip-list>
+    <mat-chip-set>
         <mat-chip *ngFor="let tag of tags" (click)="onTagSelect(tag)">{{tag.name}}</mat-chip>
-    </mat-chip-list>
+    </mat-chip-set>
 </mat-card>
 
 <mat-divider></mat-divider>
 
-<mat-card>
+<div class="mu-buttons">
 
     <button mat-icon-button (click)="onPrevNote()">
         <mat-icon>arrow_back_ios</mat-icon>
@@ -46,4 +46,5 @@
     <button mat-icon-button (click)="onAerostat()">
         <mat-icon>online_prediction</mat-icon>
     </button>
-</mat-card>
+</div>
+</div>

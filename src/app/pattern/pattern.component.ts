@@ -7,11 +7,11 @@ import { FwService } from '../fw.service';
 @Component({
   selector: 'app-pattern',
   templateUrl: './pattern.component.html',
-  styleUrls: ['./pattern.component.css']
+  styleUrls: ['./pattern.component.scss']
 })
 export class PatternComponent implements OnInit {
 
-  dates: Date[];
+  dates: Date[] = [];
   visited = {};
 
   constructor(private fwService: FwService, 
@@ -20,9 +20,11 @@ export class PatternComponent implements OnInit {
 
   ngOnInit(): void {
     let pstr = this.route.snapshot.paramMap.get('p');
-    this.fwService.findPattern(pstr).subscribe(dates => {
-      this.dates = dates.map(it => new Date(it));
-    });
+    if (pstr) {
+      this.fwService.findPattern(pstr).subscribe(dates => {
+        this.dates = dates.map(it => new Date(it));
+      });
+    }
   }
 
   openDate(date: Date) {

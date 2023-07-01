@@ -1,6 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgModule, isDevMode } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { PatternComponent } from './pattern/pattern.component';
 import { PatternsComponent } from './patterns/patterns.component';
 import { TagsComponent } from './tags/tags.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 /*
 import {A11yModule} from '@angular/cdk/a11y';
@@ -72,7 +72,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule,
 
     MatDatepickerModule,
     MatInputModule,
@@ -86,6 +85,12 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatAutocompleteModule,
     MatListModule,
     MatRadioModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
 
     /*
     A11yModule,
