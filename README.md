@@ -1,4 +1,4 @@
-= mu-fw
+# mu-fw
 
 Angular client to read [freewriting](https://en.wikipedia.org/wiki/Free_writing).
 
